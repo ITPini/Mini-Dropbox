@@ -1,44 +1,46 @@
 <?php
-$target_dir = "uploads/";
-$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+clearstatcache();
+session_start();
+$target_dir = 'uploads/' . $_SESSION['id'] . '/';
 $uploadOk = 1;
-$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-// Check if image file is a actual image or fake image
-if(isset($_POST["submit"])) {
-    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-    if($check !== false) {
-        echo "File is an image - " . $check["mime"] . ".";
-        $uploadOk = 1;
-    } else {
-        echo "File is not an image.";
-        $uploadOk = 0;
-    }
-}
-// Check if file already exists
-if (file_exists($target_file)) {
-    echo "Sorry, file already exists.";
-    $uploadOk = 0;
-}
-// Check file size
-if ($_FILES["fileToUpload"]["size"] > 500000) {
-    echo "Sorry, your file is too large.";
-    $uploadOk = 0;
-}
-// Allow certain file formats
-if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-&& $imageFileType != "gif" ) {
-    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-    $uploadOk = 0;
-}
-// Check if $uploadOk is set to 0 by an error
-if ($uploadOk == 0) {
-    echo "Sorry, your file was not uploaded.";
-// if everything is ok, try to upload file
+$rand = rand();
+
+$target_file = $target_dir . basename($_FILES["upload_file"]["name"]);
+$imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+// Check if target file is a file
+if (!isset($_FILES['upload_file']) || $_FILES['upload_file']['error'] == UPLOAD_ERR_NO_FILE) {
+  echo 'Sorry, your upload file was not found. <br>';
 } else {
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-    } else {
-        echo "Sorry, there was an error uploading your file.";
-    }
+  // Check if file already exists - otherwise rename with random int
+  if (file_exists($target_file)) {
+      rename($target_file, $target_dir . $rand . basename($target_file, "$imageFileType") . $imageFileType);
+      echo 'File name already exist. ';
+      echo 'Your file has been renamed to ' . $rand . basename($target_file, "$imageFileType") . '<br>';
+  }
+
+  // Check file size
+  if ($_FILES["upload_file"]["size"] >= 500000) {
+      echo 'Sorry, your file is too large. <br>';
+      $uploadOk = 0;
+  }
+
+  // Check if $uploadOk is set to 0 by an error
+  if ($uploadOk == 0) {
+      echo 'Sorry, your file was not uploaded. <br>';
+  // Otherwise upload file
+  } else {
+      if (move_uploaded_file($_FILES["upload_file"]["tmp_name"], $target_file)) {
+          echo 'The file has been uploaded. <br>';
+      } else {
+          echo 'Sorry, there was an error uploading your file. <br>';
+      }
+  }
 }
 ?>
+
+<form action="home.php" method="post">
+  <div class="container">
+    <button type="submit">Back</button>
+  </div>
+</form>
