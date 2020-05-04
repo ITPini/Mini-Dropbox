@@ -19,9 +19,11 @@ Local file hosting service with HTML, PHP & MySQL
 **Mini-Dropbox** requires any form of software stack to run (WAMP, MAMP, XAMPP...).
 
 - Download and unzip source to a desired directory
-- Run software stack (WAMP, MAMP, XAMPP...).
+- Run software stack (WAMP, MAMP, XAMPP...)
+- Open phpMyAdmin and create a new database with the name 'users'
+- Insert the following SQL query:
 
-With SQL:
+SQL:
 ```SQL
 CREATE TABLE IF NOT EXISTS `users` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
@@ -32,11 +34,12 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`) VALUES (1, 'admin', 'admin');
 ```
-- Be sure that the localhost SQL has the following credentials on phpMyAdmin:
+- Be sure that the localhost SQL has the following credentials on phpMyAdmin (by default):
 $SQL_USER = 'root';
-$SQL_PASS = 'root';
+$SQL_PASS = '';
 
-- Run index.html and login with 'admin' & 'admin'
+- Run Mini-Dropbox/index.html and login with 'admin' & 'admin'
+- Feel free to create multiple users on PHPmyAdmin
 
 ## Development
 - Marcelino Patrick Pini, 3d1

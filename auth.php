@@ -2,9 +2,9 @@
 session_start();
 // SQL credentials
 $SQL_USER = 'root';
-$SQL_PASS = 'root';
+$SQL_PASS = '';
 $SQL_HOST = 'localhost';
-$SQL_NAME = 'login';
+$SQL_NAME = 'users';
 
 // Try connecting to SQL server
 $con = mysqli_connect($SQL_HOST, $SQL_USER, $SQL_PASS, $SQL_NAME);
@@ -40,7 +40,7 @@ if ($stmt = $con->prepare('SELECT id, password FROM users WHERE username = ?')) 
       if (!file_exists('./uploads/' . $_SESSION['id'])) {
       mkdir('./uploads/' . $_SESSION['id'], 0777, true);
     }
-    
+
     // If the username existed but wrong password
   	} else {
   		echo 'Incorrect password!';
