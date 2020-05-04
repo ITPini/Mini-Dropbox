@@ -34,12 +34,12 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`) VALUES (1, 'admin', 'admin');
 ```
-- Be sure that the localhost SQL has the following credentials on phpMyAdmin (by default):
-$SQL_USER = 'root';
-$SQL_PASS = '';
+- Be sure that the localhost SQL has the following credentials on phpMyAdmin (by default):  
+$SQL_USER = 'root';  
+$SQL_PASS = '';  
 
 - Run Mini-Dropbox/index.html and login with 'admin' & 'admin'
-- Feel free to create multiple users on PHPmyAdmin
+- Feel free to create multiple users on phpMyAdmin
 
 ## Development
 - Marcelino Patrick Pini, 3d1
