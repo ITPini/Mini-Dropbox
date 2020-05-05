@@ -44,3 +44,4 @@ $SQL_PASS = '';
 ## Development
 - Marcelino Patrick Pini, 3d1
 - Tobias Nordholm-Højskov, 3d1
+- Theodore Rothschild Eisensøe, 3d1
